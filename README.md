@@ -13,25 +13,26 @@ checklist, not a replacement for a real pentest.
 
 ## Why this exists
 
-Most "is my app secure?" checklists are generic. These five are written for
-a specific failure mode: code that works, was shipped fast, and was never
+Most "is my app secure?" checklists are generic. These are written for a
+specific failure mode: code that works, was shipped fast, and was never
 looked at by anyone who thinks like an attacker. Each prompt tells the model
 to act like an adversary, walk every relevant path in the codebase, and
 output a table of findings with severity and an exact fix — not a vague
 "looks okay" summary.
 
-## The five audits
+## The audits
 
-| # | Audit | Catches |
-|---|-------|---------|
-| 1 | [Secrets sweep](prompts/01-secrets-sweep.md) | Hardcoded keys, committed `.env` files, secrets buried in git history |
-| 2 | [Auth teardown](prompts/02-auth-teardown.md) | Routes that skip session checks, endpoints that trust a client-supplied user ID |
-| 3 | [Database interrogation](prompts/03-database-interrogation.md) | Missing/weak RLS policies, one user reading or editing another's rows |
-| 4 | [Input audit](prompts/04-input-audit.md) | Injection, unsafe `eval`/shell calls, unsanitized uploads, unescaped HTML |
-| 5 | [Cost bomb check](prompts/05-cost-bomb-check.md) | Unrated AI/LLM routes, missing rate limits, spammable email/SMS endpoints |
+| #   | Audit                                                  | Catches                                                                                                |
+| --- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| 1   | [Secrets sweep](prompts/01-secrets-sweep.md)           | Hardcoded keys, committed `.env` files, secrets buried in git history                                  |
+| 2   | [Auth teardown](prompts/02-auth-teardown.md)           | Routes that skip session checks, endpoints that trust a client-supplied user ID                        |
+| 3   | [Database audit](prompts/03-database-interrogation.md) | Missing/weak RLS, Firestore rules, or NoSQL query scoping — one user reading or editing another's data |
+| 4   | [Input audit](prompts/04-input-audit.md)               | Injection, unsafe `eval`/shell calls, unsanitized uploads, unescaped HTML                              |
+| 5   | [Cost bomb check](prompts/05-cost-bomb-check.md)       | Unrated AI/LLM routes, missing rate limits, spammable email/SMS endpoints                              |
 
-Run all five before you ship anything with auth, a database, user input, or
-a paid API in the critical path.
+Run all of them before you ship anything with auth, a database, user input,
+or a paid API in the critical path — for the database audit, just run the
+section that matches your stack.
 
 ## Usage
 
